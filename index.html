@@ -4,994 +4,633 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guau Couture — Primavera Silenciosa 2025</title>
-  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── BRAND TOKENS — Guau Couture Brand Guidelines v1.0 ─── */
     :root {
-      --mint:        #8FBC8F;
-      --mint-pale:   #E8F5E8;
-      --rose:        #D4A5A5;
-      --ink:         #1A1A1A;
-      --white:       #FAFAFA;
-      --mid-gray:    #6B6B6B;
-      --light-gray:  #E5E5E5;
-
-      --ff-title: 'Playfair Display', Georgia, serif;
-      --ff-body:  'DM Sans', system-ui, sans-serif;
-
-      --max-w: 1100px;
-      --section-v: 100px;
+      --mint:       #8FBC8F;   /* Verde Menta — COLOR PRINCIPAL */
+      --mint-pale:  #EEF6EE;   /* Menta Pálido */
+      --rose:       #E8B4B8;   /* Rosa Jardín — secundario */
+      --ink:        #1A1A1A;   /* Negro Tinta */
+      --white:      #FAFAF8;   /* Blanco */
+      --gray:       #6B6B6B;
+      --line:       #E2E2E0;
+      --ff-h: 'Playfair Display', Georgia, serif;
+      --ff-b: 'DM Sans', system-ui, sans-serif;
+      --w: 1100px;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: var(--ff-body);
-      background-color: var(--white);
+      font-family: var(--ff-b);
+      background: var(--white);
       color: var(--ink);
-      font-size: 16px;
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── NAVIGATION ─────────────────────────────── */
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes fu { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+    .fu  { animation: fu .85s cubic-bezier(.22,1,.36,1) both; }
+    .d1  { animation-delay:.08s; } .d2 { animation-delay:.20s; }
+    .d3  { animation-delay:.32s; } .d4 { animation-delay:.44s; }
+    .d5  { animation-delay:.56s; } .d6 { animation-delay:.68s; }
+
+    /* ── NAV ── Blanco + Negro ──────────────────────────────── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 60px;
-      background: rgba(250, 250, 250, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--light-gray);
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      height: 70px; display: flex; justify-content: space-between; align-items: center;
+      padding: 0 60px;
+      background: rgba(250,250,248,.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
     }
+    .logo { text-decoration:none; display:flex; flex-direction:column; gap:1px; }
+    .logo-g { font-family:var(--ff-h); font-size:.98rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--ink); line-height:1; }
+    .logo-c { font-family:var(--ff-h); font-size:.62rem; font-style:italic; letter-spacing:.28em; text-transform:uppercase; color:var(--mint); line-height:1; }
+    nav ul  { display:flex; gap:36px; list-style:none; align-items:center; }
+    nav a   { font-family:var(--ff-b); font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color .2s; }
+    nav a:hover { color:var(--mint); }
+    .nav-cta { background:var(--mint) !important; color:var(--white) !important; padding:10px 26px !important; border:none; transition:background .25s !important; }
+    .nav-cta:hover { background:var(--ink) !important; color:var(--white) !important; }
 
-    .nav-logo {
-      font-family: var(--ff-title);
-      font-size: 1.1rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--ff-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid-gray);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--mint); }
-
-    /* ─── HERO ───────────────────────────────────── */
+    /* ─────────────────────────────────────────────────────────
+       HERO — Verde Menta + Blanco (combinación principal #1)
+    ───────────────────────────────────────────────────────── */
     .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 100vh; padding-top: 70px;
+    }
+    .hero-left {
+      background: var(--mint);           /* VERDE MENTA fondo */
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 64px;
+    }
+    .eyebrow {
+      font-family:var(--ff-b); font-size:.64rem; letter-spacing:.28em;
+      text-transform:uppercase; color:rgba(250,250,248,.65); margin-bottom:36px;
+    }
+    .brand-g {
+      font-family:var(--ff-h); font-weight:700; line-height:.88;
+      font-size: clamp(3.8rem,6vw,5.8rem); text-transform:uppercase;
+      color:var(--white); letter-spacing:.02em; display:block;
+    }
+    .brand-c {
+      font-family:var(--ff-h); font-style:italic; font-weight:400;
+      font-size: clamp(.9rem,1.6vw,1.4rem); letter-spacing:.34em;
+      text-transform:uppercase; color:rgba(250,250,248,.7);
+      display:block; margin-top:6px; margin-bottom:42px;
+    }
+    .h-rule { width:44px; height:1px; background:rgba(250,250,248,.35); margin-bottom:36px; }
+    .h-title {
+      font-family:var(--ff-h); font-size:clamp(1.4rem,2.4vw,2.1rem);
+      font-style:italic; font-weight:400; line-height:1.2;
+      color:var(--white); margin-bottom:6px;
+    }
+    .h-sub {
+      font-family:var(--ff-b); font-size:.7rem; letter-spacing:.18em;
+      text-transform:uppercase; color:rgba(250,250,248,.55); margin-bottom:36px;
+    }
+    .h-body {
+      font-family:var(--ff-b); font-size:.95rem; font-weight:300;
+      color:rgba(250,250,248,.8); line-height:1.85; max-width:360px; margin-bottom:44px;
+    }
+    .h-meta { display:flex; flex-direction:column; gap:5px; margin-bottom:44px; }
+    .h-meta span {
+      font-family:var(--ff-b); font-size:.7rem; letter-spacing:.15em;
+      text-transform:uppercase; color:rgba(250,250,248,.9);
+    }
+    .hero-img { position:relative; overflow:hidden; }
+    .hero-img img {
+      width:100%; height:100%; object-fit:cover; object-position:center top;
+      display:block; filter:grayscale(10%) contrast(1.05); transition:filter .6s, transform .6s;
+    }
+    .hero-img:hover img { filter:grayscale(0%) contrast(1.08); transform:scale(1.02); }
+    .hero-badge {
+      position:absolute; top:32px; left:32px;
+      background:var(--rose); color:var(--ink);          /* Rosa Jardín badge */
+      font-family:var(--ff-b); font-size:.6rem; font-weight:500;
+      letter-spacing:.18em; text-transform:uppercase; padding:8px 18px;
+    }
+    .hero-caption {
+      position:absolute; bottom:26px; right:26px;
+      font-family:var(--ff-b); font-size:.58rem; letter-spacing:.2em;
+      text-transform:uppercase; color:rgba(255,255,255,.55);
     }
 
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 60px 80px 60px;
-      background-color: var(--mint-pale);
+    /* ── BTNs ────────────────────────────────────────────────── */
+    .btn-white {
+      display:inline-block; padding:15px 44px;
+      background:var(--white); color:var(--mint);
+      font-family:var(--ff-b); font-size:.68rem; font-weight:500;
+      letter-spacing:.22em; text-transform:uppercase; text-decoration:none;
+      border:1px solid var(--white); transition:background .25s, color .25s, border-color .25s;
     }
+    .btn-white:hover { background:var(--ink); color:var(--white); border-color:var(--ink); }
 
-    .hero-eyebrow {
-      font-family: var(--ff-body);
-      font-size: 0.7rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--mint);
-      margin-bottom: 28px;
+    .btn-ink {
+      display:inline-block; padding:15px 44px;
+      background:var(--ink); color:var(--white);
+      font-family:var(--ff-b); font-size:.68rem; font-weight:400;
+      letter-spacing:.22em; text-transform:uppercase; text-decoration:none;
+      border:1px solid var(--ink); transition:background .25s, color .25s;
     }
+    .btn-ink:hover { background:var(--mint); border-color:var(--mint); }
 
-    .hero-title {
-      font-family: var(--ff-title);
-      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
-      font-weight: 500;
-      line-height: 1.12;
-      color: var(--ink);
-      margin-bottom: 10px;
+    .btn-mint {
+      display:inline-block; padding:15px 44px;
+      background:var(--mint); color:var(--white);
+      font-family:var(--ff-b); font-size:.68rem; font-weight:400;
+      letter-spacing:.22em; text-transform:uppercase; text-decoration:none;
+      border:1px solid var(--mint); transition:background .25s, color .25s;
     }
+    .btn-mint:hover { background:var(--white); color:var(--mint); }
 
-    .hero-title em {
-      font-style: italic;
-      color: var(--mint);
+    /* ─────────────────────────────────────────────────────────
+       ROSA BAND — Rosa Jardín + Negro (combinación #2)
+    ───────────────────────────────────────────────────────── */
+    .rose-band {
+      background:var(--rose); padding:15px 60px;
+      display:flex; align-items:center; gap:24px; overflow:hidden;
     }
-
-    .hero-subtitle-event {
-      font-family: var(--ff-title);
-      font-size: clamp(1rem, 1.5vw, 1.2rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--mid-gray);
-      letter-spacing: 0.04em;
-      margin-bottom: 36px;
+    .rose-band span {
+      font-family:var(--ff-h); font-size:.8rem; font-style:italic;
+      color:var(--ink); white-space:nowrap; opacity:.75;
     }
+    .rose-band b { font-style:normal; opacity:.28; font-size:.45rem; flex-shrink:0; }
 
-    .hero-divider {
-      width: 48px;
-      height: 1px;
-      background-color: var(--mint);
-      margin-bottom: 36px;
-    }
-
-    .hero-headline {
-      font-family: var(--ff-body);
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--mid-gray);
-      max-width: 400px;
-      line-height: 1.75;
-      margin-bottom: 16px;
-    }
-
-    .hero-subheadline {
-      font-family: var(--ff-body);
-      font-size: 0.85rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--rose);
-      margin-bottom: 52px;
-      letter-spacing: 0.03em;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 44px;
-    }
-
-    .hero-meta span {
-      font-family: var(--ff-body);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-
-    .btn-primary {
-      display: inline-block;
-      width: fit-content;
-      padding: 16px 44px;
-      background-color: var(--ink);
-      color: var(--white);
-      font-family: var(--ff-body);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background-color 0.25s, color 0.25s;
-      border: 1px solid var(--ink);
-    }
-
-    .btn-primary:hover {
-      background-color: var(--mint);
-      border-color: var(--mint);
-      color: var(--white);
-    }
-
-    .hero-image {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      filter: grayscale(15%) contrast(1.05);
-    }
-
-    .hero-image-caption {
-      position: absolute;
-      bottom: 32px;
-      right: 32px;
-      font-family: var(--ff-body);
-      font-size: 0.65rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-    }
-
-    /* ─── SECTION BASE ───────────────────────────── */
-    section {
-      padding: var(--section-v) 60px;
-    }
-
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: var(--ff-body);
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--mint);
-      margin-bottom: 20px;
-      display: block;
-    }
-
-    .section-title {
-      font-family: var(--ff-title);
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 500;
-      line-height: 1.2;
-      color: var(--ink);
-      margin-bottom: 36px;
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--mint);
-    }
-
-    /* ─── EDITORIAL TEXT ─────────────────────────── */
+    /* ─────────────────────────────────────────────────────────
+       EDITORIAL — Blanco + Negro
+    ───────────────────────────────────────────────────────── */
     .editorial {
-      background-color: var(--white);
+      padding: 108px 60px;
+      background: var(--white);
+      border-top: 1px solid var(--line);
+    }
+    .editorial-inner {
+      max-width:var(--w); margin:0 auto;
+      display:grid; grid-template-columns:1fr 2fr; gap:88px; align-items:start;
+    }
+    .s-label {
+      font-family:var(--ff-b); font-size:.63rem; letter-spacing:.26em;
+      text-transform:uppercase; color:var(--mint); margin-bottom:16px; display:block;
+    }
+    .s-title {
+      font-family:var(--ff-h); font-size:clamp(1.7rem,2.8vw,2.5rem);
+      font-weight:500; line-height:1.18; color:var(--ink); margin-bottom:36px;
+    }
+    .s-title em { font-style:italic; color:var(--mint); }
+    .pull {
+      font-family:var(--ff-h); font-size:1.1rem; font-style:italic;
+      color:var(--ink); line-height:1.62;
+      border-left:3px solid var(--rose); padding-left:24px; margin-top:44px;
+    }
+    .e-body p {
+      font-family:var(--ff-b); font-size:1rem; font-weight:300;
+      color:var(--gray); line-height:1.88; margin-bottom:24px;
+    }
+    .e-body p:last-child { margin-bottom:0; }
+    .e-body strong { font-weight:500; color:var(--ink); }
+
+    /* ── VISUAL STRIP ───────────────────────────────────────── */
+    .vstrip {
+      height:480px; overflow:hidden;
+      display:grid; grid-template-columns:2fr 1fr 1fr;
+    }
+    .vstrip img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      filter:grayscale(12%) contrast(1.05);
+      transition:filter .5s, transform .6s;
+      border-right:2px solid var(--white);
+    }
+    .vstrip img:last-child { border-right:none; }
+    .vstrip img:hover { filter:grayscale(0%) contrast(1.1); transform:scale(1.025); }
+
+    /* ─────────────────────────────────────────────────────────
+       PROGRAMME — Negro + Menta (combinación #3)
+    ───────────────────────────────────────────────────────── */
+    .prog {
+      padding: 108px 60px;
+      background: var(--ink);            /* Negro Tinta fondo */
+    }
+    .prog-inner { max-width:var(--w); margin:0 auto; }
+    .prog .s-title { color:var(--white); }
+    .prog-intro {
+      font-family:var(--ff-b); font-size:.9rem; font-weight:300;
+      color:rgba(250,250,248,.45); max-width:520px; line-height:1.85; margin-bottom:72px;
+    }
+    .prog-item {
+      display:grid; grid-template-columns:110px 1fr; gap:44px;
+      padding:36px 0; border-bottom:1px solid rgba(250,250,248,.07);
+      align-items:start; transition:padding-left .2s;
+    }
+    .prog-item:first-child { border-top:1px solid rgba(250,250,248,.07); }
+    .prog-item:hover { padding-left:8px; }
+    .prog-item--rose {
+      border-left:3px solid var(--rose);    /* Rosa Jardín acento */
+      padding-left:20px; margin-left:-23px;
+    }
+    .prog-item--rose .prog-tag { color:var(--rose); border-color:rgba(232,180,184,.4); }
+    .p-time {
+      font-family:var(--ff-b); font-size:.66rem; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--mint); padding-top:5px;
+    }
+    .p-name {
+      font-family:var(--ff-h); font-size:1.2rem; font-style:italic;
+      color:var(--white); margin-bottom:10px; line-height:1.3;
+    }
+    .prog-tag {
+      display:inline-block; font-family:var(--ff-b); font-size:.58rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--mint);
+      border:1px solid rgba(143,188,143,.35); padding:3px 10px; margin-bottom:14px;
+    }
+    .p-desc {
+      font-family:var(--ff-b); font-size:.86rem; font-weight:300;
+      color:rgba(250,250,248,.44); line-height:1.78; max-width:520px;
     }
 
-    .editorial-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 80px;
-      align-items: start;
+    /* ── FULL IMAGE ─────────────────────────────────────────── */
+    .vfull { height:560px; overflow:hidden; position:relative; }
+    .vfull img {
+      width:100%; height:100%; object-fit:cover;
+      object-position:center 30%; display:block; filter:grayscale(8%) contrast(1.04);
+    }
+    .vfull-ov {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(26,26,26,.62) 0%, transparent 55%);
+    }
+    .vfull-txt {
+      position:absolute; bottom:60px; left:64px; right:64px; max-width:600px;
+    }
+    .vfull-txt blockquote {
+      font-family:var(--ff-h); font-size:clamp(1.4rem,2.4vw,2rem);
+      font-style:italic; color:var(--white); line-height:1.42;
+    }
+    .vfull-txt cite {
+      display:block; margin-top:16px; font-family:var(--ff-b); font-size:.64rem;
+      letter-spacing:.2em; text-transform:uppercase; color:var(--mint); font-style:normal;
     }
 
-    .editorial-sidebar {
-      padding-top: 8px;
-    }
-
-    .editorial-pull-quote {
-      font-family: var(--ff-title);
-      font-size: 1.25rem;
-      font-style: italic;
-      color: var(--ink);
-      line-height: 1.55;
-      border-left: 2px solid var(--mint);
-      padding-left: 28px;
-      margin-top: 48px;
-    }
-
-    .editorial-body p {
-      font-family: var(--ff-body);
-      font-size: 1rem;
-      font-weight: 300;
-      color: var(--mid-gray);
-      line-height: 1.85;
-      margin-bottom: 24px;
-    }
-
-    .editorial-body p:last-child { margin-bottom: 0; }
-
-    .editorial-body strong {
-      font-weight: 500;
-      color: var(--ink);
-    }
-
-    /* ─── VISUAL INTERLUDE ───────────────────────── */
-    .visual-strip {
-      padding: 0;
-      height: 480px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .visual-strip-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      height: 100%;
-    }
-
-    .visual-strip-grid img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(10%) contrast(1.04);
-      transition: filter 0.4s;
-    }
-
-    .visual-strip-grid img:hover {
-      filter: grayscale(0%) contrast(1.08);
-    }
-
-    .visual-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(143, 188, 143, 0.08),
-        transparent 40%,
-        transparent 60%,
-        rgba(26, 26, 26, 0.06)
-      );
-      pointer-events: none;
-    }
-
-    /* ─── PROGRAMME ──────────────────────────────── */
-    .programme {
-      background-color: var(--ink);
-      color: var(--white);
-    }
-
-    .programme .section-label { color: var(--mint); }
-
-    .programme .section-title { color: var(--white); }
-
-    .programme-intro {
-      font-family: var(--ff-body);
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.55);
-      max-width: 560px;
-      line-height: 1.8;
-      margin-bottom: 72px;
-    }
-
-    .programme-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .programme-item {
-      display: grid;
-      grid-template-columns: 120px 1fr;
-      gap: 40px;
-      padding: 36px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      align-items: start;
-    }
-
-    .programme-item:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
-
-    .programme-time {
-      font-family: var(--ff-body);
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--mint);
-      padding-top: 5px;
-    }
-
-    .programme-details {}
-
-    .programme-name {
-      font-family: var(--ff-title);
-      font-size: 1.3rem;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--white);
-      margin-bottom: 10px;
-      line-height: 1.3;
-    }
-
-    .programme-tag {
-      display: inline-block;
-      font-family: var(--ff-body);
-      font-size: 0.62rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--mint);
-      border: 1px solid rgba(143, 188, 143, 0.4);
-      padding: 3px 10px;
-      margin-bottom: 14px;
-    }
-
-    .programme-desc {
-      font-family: var(--ff-body);
-      font-size: 0.88rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.75;
-      max-width: 560px;
-    }
-
-    /* ─── PRACTICAL INFO ─────────────────────────── */
+    /* ─────────────────────────────────────────────────────────
+       INFO — Rosa Jardín + Negro (combinación #2 extendida)
+    ───────────────────────────────────────────────────────── */
     .info {
-      background-color: var(--mint-pale);
+      padding: 108px 60px;
+      background: var(--rose);           /* Rosa Jardín fondo */
+    }
+    .info-inner {
+      max-width:var(--w); margin:0 auto;
+      display:grid; grid-template-columns:1.2fr 1fr; gap:100px; align-items:start;
+    }
+    .info .s-label { color:var(--ink); opacity:.5; }
+    .info .s-title { color:var(--ink); }
+    .info .s-title em { color:var(--ink); font-style:italic; opacity:.7; }
+    .i-block { margin-bottom:36px; }
+    .i-block:last-child { margin-bottom:0; }
+    .i-lbl {
+      font-family:var(--ff-b); font-size:.6rem; font-weight:500;
+      letter-spacing:.26em; text-transform:uppercase;
+      color:var(--ink); opacity:.5; margin-bottom:7px; display:block;
+    }
+    .i-val { font-family:var(--ff-h); font-size:1.18rem; color:var(--ink); line-height:1.4; }
+    .i-sub {
+      font-family:var(--ff-b); font-size:.82rem; font-weight:300;
+      color:var(--ink); opacity:.6; margin-top:5px; line-height:1.65;
+    }
+    /* CTA panel — Negro + Menta sobre fondo rosa */
+    .info-cta {
+      background:var(--ink);             /* Negro sobre rosa */
+      padding:52px 48px;
+      display:flex; flex-direction:column; gap:28px; align-items:flex-start;
+    }
+    .cta-label {
+      font-family:var(--ff-b); font-size:.6rem; letter-spacing:.26em;
+      text-transform:uppercase; color:var(--mint);
+    }
+    .cta-note {
+      font-family:var(--ff-b); font-size:.84rem; font-weight:300;
+      font-style:italic; color:rgba(250,250,248,.68); line-height:1.75;
+    }
+    .cta-contact {
+      font-family:var(--ff-b); font-size:.72rem; color:var(--mint); line-height:1.7;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 100px;
-      align-items: center;
-    }
-
-    .info-details {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-
-    .info-block {}
-
-    .info-block-label {
-      font-family: var(--ff-body);
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--mint);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .info-block-value {
-      font-family: var(--ff-title);
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--ink);
-      line-height: 1.4;
-    }
-
-    .info-block-sub {
-      font-family: var(--ff-body);
-      font-size: 0.83rem;
-      font-weight: 300;
-      color: var(--mid-gray);
-      margin-top: 5px;
-      line-height: 1.6;
-    }
-
-    .info-cta-side {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 28px;
-    }
-
-    .info-note {
-      font-family: var(--ff-body);
-      font-size: 0.82rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--mid-gray);
-      line-height: 1.7;
-      max-width: 320px;
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      width: fit-content;
-      padding: 16px 44px;
-      background-color: transparent;
-      color: var(--ink);
-      font-family: var(--ff-body);
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: 1px solid var(--ink);
-      transition: background-color 0.25s, color 0.25s;
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--ink);
-      color: var(--white);
-    }
-
-    /* ─── SECOND VISUAL ──────────────────────────── */
-    .visual-full {
-      padding: 0;
-      height: 560px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .visual-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
-      display: block;
-      filter: grayscale(8%) contrast(1.03);
-    }
-
-    .visual-full-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(26, 26, 26, 0.5) 0%,
-        transparent 50%
-      );
-    }
-
-    .visual-full-text {
-      position: absolute;
-      bottom: 60px;
-      left: 60px;
-      right: 60px;
-      max-width: 600px;
-    }
-
-    .visual-full-text blockquote {
-      font-family: var(--ff-title);
-      font-size: clamp(1.4rem, 2.5vw, 2rem);
-      font-style: italic;
-      font-weight: 400;
-      color: var(--white);
-      line-height: 1.4;
-    }
-
-    .visual-full-text cite {
-      display: block;
-      margin-top: 14px;
-      font-family: var(--ff-body);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--mint);
-      font-style: normal;
-    }
-
-    /* ─── FOOTER ─────────────────────────────────── */
+    /* ─────────────────────────────────────────────────────────
+       FOOTER — Verde Menta + Blanco (cierra como abre)
+    ───────────────────────────────────────────────────────── */
     footer {
-      background-color: var(--white);
-      border-top: 1px solid var(--light-gray);
-      padding: 60px 60px;
+      background: var(--mint);           /* Verde Menta fondo */
+      padding: 60px 60px 48px;
     }
-
-    .footer-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 40px;
+    .ft-inner {
+      max-width:var(--w); margin:0 auto;
+      display:flex; justify-content:space-between; align-items:flex-end; gap:40px;
     }
+    .ft-g { font-family:var(--ff-h); font-size:1rem; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--white); display:block; line-height:1; }
+    .ft-c { font-family:var(--ff-h); font-size:.66rem; font-style:italic; letter-spacing:.28em; text-transform:uppercase; color:rgba(250,250,248,.7); display:block; margin-top:3px; margin-bottom:14px; }
+    .ft-tag { font-family:var(--ff-h); font-size:.86rem; font-style:italic; color:rgba(250,250,248,.82); }
+    .ft-meta { display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+    .ft-meta span { font-family:var(--ff-b); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(250,250,248,.65); }
+    .ft-links { display:flex; gap:28px; margin-bottom:4px; }
+    .ft-links a { font-family:var(--ff-b); font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(250,250,248,.65); text-decoration:none; transition:color .2s; }
+    .ft-links a:hover { color:var(--white); }
+    .ft-rule { max-width:var(--w); margin:36px auto 0; height:1px; background:rgba(250,250,248,.18); }
 
-    .footer-brand {}
-
-    .footer-logo {
-      font-family: var(--ff-title);
-      font-size: 1.05rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink);
-      display: block;
-      margin-bottom: 10px;
-    }
-
-    .footer-tagline {
-      font-family: var(--ff-title);
-      font-size: 0.85rem;
-      font-style: italic;
-      color: var(--mid-gray);
-    }
-
-    .footer-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .footer-meta span {
-      font-family: var(--ff-body);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid-gray);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 28px;
-    }
-
-    .footer-links a {
-      font-family: var(--ff-body);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mid-gray);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover { color: var(--mint); }
-
-    /* ─── RESPONSIVE ─────────────────────────────── */
-    @media (max-width: 900px) {
-      nav { padding: 20px 28px; }
-      nav .nav-links { display: none; }
-
-      .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-content { padding: 80px 28px 60px; }
-      .hero-image { height: 360px; }
-
-      section { padding: 72px 28px; }
-
-      .editorial-grid { grid-template-columns: 1fr; gap: 48px; }
-      .editorial-pull-quote { margin-top: 0; }
-
-      .visual-strip { height: 280px; }
-      .visual-strip-grid { grid-template-columns: 1fr; }
-      .visual-strip-grid img:not(:first-child) { display: none; }
-
-      .programme-item { grid-template-columns: 90px 1fr; gap: 24px; }
-
-      .info-grid { grid-template-columns: 1fr; gap: 52px; }
-
-      .visual-full { height: 400px; }
-      .visual-full-text { left: 28px; right: 28px; bottom: 40px; }
-
-      footer { padding: 48px 28px; }
-      .footer-inner { flex-direction: column; align-items: flex-start; }
-      .footer-meta { align-items: flex-start; }
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width:900px) {
+      nav { padding:0 24px; }
+      nav ul  { display:none; }
+      .hero   { grid-template-columns:1fr; min-height:auto; }
+      .hero-left { padding:80px 24px 56px; }
+      .hero-img  { height:300px; }
+      .editorial, .prog, .info { padding:72px 24px; }
+      .editorial-inner, .info-inner { grid-template-columns:1fr; gap:44px; }
+      .vstrip { grid-template-columns:1fr; height:240px; }
+      .vstrip img:not(:first-child) { display:none; }
+      .prog-item { grid-template-columns:80px 1fr; gap:20px; }
+      .vfull { height:340px; }
+      .vfull-txt { left:24px; right:24px; bottom:30px; }
+      footer { padding:52px 24px 40px; }
+      .ft-inner { flex-direction:column; align-items:flex-start; }
+      .ft-meta  { align-items:flex-start; }
+      .rose-band { padding:14px 24px; }
     }
   </style>
 </head>
-
 <body>
 
-  <!-- ─── NAVIGATION ──────────────────────────────────── -->
-  <nav>
-    <a href="#" class="nav-logo">Guau Couture</a>
-    <ul class="nav-links">
-      <li><a href="#evento">El Evento</a></li>
-      <li><a href="#programa">Programa</a></li>
-      <li><a href="#acceso">Acceso</a></li>
-      <li><a href="#reserva" class="btn-primary" style="padding: 10px 24px;">Reservar</a></li>
-    </ul>
-  </nav>
+<!-- ── NAV ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="logo">
+    <span class="logo-g">Guau</span>
+    <span class="logo-c">Couture</span>
+  </a>
+  <ul>
+    <li><a href="#evento">La Colección</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#acceso">Acceso</a></li>
+    <li><a href="#reserva" class="nav-cta">Solicitar plaza</a></li>
+  </ul>
+</nav>
 
 
-  <!-- ─── HERO ────────────────────────────────────────── -->
-  <section style="padding: 0;" aria-label="Hero">
-    <div class="hero">
+<!-- ── HERO — Verde Menta + Blanco ──────────────────────────── -->
+<section style="padding:0">
+  <div class="hero">
 
-      <div class="hero-content">
-        <span class="hero-eyebrow">Guau Couture — Madrid, 2025</span>
-
-        <h1 class="hero-title">
-          Primavera<br><em>Silenciosa</em>
-        </h1>
-        <p class="hero-subtitle-event">Un desfile de alta costura canina</p>
-
-        <div class="hero-divider"></div>
-
-        <p class="hero-headline">
-          Hay colecciones que se muestran. Hay colecciones que se contemplan.
-          Esta pertenece, sin reservas, a la segunda categoría.
-        </p>
-
-        <p class="hero-subheadline">
-          La distinción no se compra. Se hereda. O se viste.
-        </p>
-
-        <div class="hero-meta">
-          <span>12 de junio de 2025</span>
-          <span>19:00 h — Palacete de las Magnolias, Madrid</span>
-        </div>
-
-        <a href="#reserva" class="btn-primary">Solicitar acceso</a>
+    <div class="hero-left">
+      <span class="eyebrow fu d1">Maison de Mode Canine — Madrid, 2025</span>
+      <div class="fu d2">
+        <span class="brand-g">Guau</span>
+        <span class="brand-c">Couture</span>
       </div>
-
-      <div class="hero-image">
-        <img
-          src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&q=85&fit=crop"
-          alt="Desfile Primavera Silenciosa — Guau Couture"
-        />
-        <span class="hero-image-caption">SS 2025 — Madrid</span>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- ─── EDITORIAL DESCRIPTION ───────────────────────── -->
-  <section class="editorial" id="evento">
-    <div class="container">
-      <div class="editorial-grid">
-
-        <div class="editorial-sidebar">
-          <span class="section-label">La colección</span>
-          <h2 class="section-title">Sobre el<br><em>silencio</em><br>de la forma</h2>
-
-          <blockquote class="editorial-pull-quote">
-            "El verdadero lujo no eleva la voz. Simplemente ocupa el espacio."
-          </blockquote>
-        </div>
-
-        <div class="editorial-body">
-          <p>
-            <strong>Primavera Silenciosa</strong> es la tercera colección de la Maison
-            Guau Couture presentada en formato desfile. Inspirada en la quietud de los
-            jardines formales del siglo xviii y en la geometría contenida de la alta
-            costura europea, esta entrega explora la tensión entre la estructura y el
-            movimiento, entre lo visible y lo apenas sugerido.
-          </p>
-          <p>
-            Dieciséis piezas. Cada una concebida para un cuerpo específico, cada una
-            portada por un modelo seleccionado con la misma exigencia con que se elige
-            una tela. La colección transita del marfil al verde menta, del crepé al
-            organza, sin concesiones al exceso ni a la obviedad.
-          </p>
-          <p>
-            El desfile tendrá lugar en los jardines interiores del Palacete de las
-            Magnolias, en el barrio de Salamanca. Una locación que, como la propia
-            colección, prefiere la sugerencia a la declaración.
-          </p>
-          <p>
-            La asistencia es <strong>únicamente por invitación o reserva previa</strong>.
-            El aforo es reducido por diseño, no por circunstancia.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ─── VISUAL STRIP ─────────────────────────────────── -->
-  <div class="visual-strip" aria-hidden="true">
-    <div class="visual-strip-grid">
-      <img
-        src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80&fit=crop"
-        alt=""
-      />
-      <img
-        src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500&q=80&fit=crop"
-        alt=""
-      />
-      <img
-        src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&q=80&fit=crop&crop=top"
-        alt=""
-      />
-    </div>
-    <div class="visual-overlay"></div>
-  </div>
-
-
-  <!-- ─── PROGRAMME ────────────────────────────────────── -->
-  <section class="programme" id="programa">
-    <div class="container">
-
-      <span class="section-label">12 de junio, 2025</span>
-      <h2 class="section-title">Programa<br><em>del desfile</em></h2>
-
-      <p class="programme-intro">
-        Cada momento de la velada ha sido compuesto con la misma atención
-        que una pieza de la colección. Nada está de más. Nada falta.
+      <div class="h-rule fu d3"></div>
+      <h1 class="h-title fu d3">Primavera Silenciosa</h1>
+      <p class="h-sub fu d3">Un desfile de alta costura canina</p>
+      <p class="h-body fu d4">
+        Hay colecciones que se muestran. Hay colecciones que se contemplan.
+        Esta pertenece, sin reservas, a la segunda categoría.
       </p>
-
-      <div class="programme-list">
-
-        <div class="programme-item">
-          <span class="programme-time">18:30 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">La Antesala</h3>
-            <span class="programme-tag">Recepción privada</span>
-            <p class="programme-desc">
-              Bienvenida a los invitados en el patio de entrada del Palacete.
-              Champagne Billecart-Salmon y canapés de Sacha Ichiban.
-              Momento de presentaciones, de silencio y de observación mutua.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">19:00 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Primer pase — "Blanco Geométrico"</h3>
-            <span class="programme-tag">Apertura</span>
-            <p class="programme-desc">
-              Las cuatro primeras piezas de la colección. Siluetas construidas
-              sobre blanco hueso y crudo, con volúmenes detenidos en el aire.
-              Referencia directa a la arquitectura de Mies van der Rohe
-              y a la quietud de los jardines zen.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">19:20 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Segundo pase — "La Menta y la Sombra"</h3>
-            <span class="programme-tag">Colección central</span>
-            <p class="programme-desc">
-              El núcleo cromático de la temporada. Verde menta en sus cinco
-              tonalidades: desde el pálido casi mineral hasta el saturado botánico.
-              Cuatro piezas en organza y crepé con bordados de hilo de seda
-              realizados a mano en el atelier de la Maison.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">19:45 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Intermedio — "El Jardín en Pausa"</h3>
-            <span class="programme-tag">Pausa editorial</span>
-            <p class="programme-desc">
-              Breve suspensión de quince minutos. Los modelos permanecen
-              en el jardín interior en actitud estática, convirtiéndose
-              en composición visual. Música de cámara en directo
-              a cargo del Trío Alhambra.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">20:00 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Tercer pase — "Noche de Magnolias"</h3>
-            <span class="programme-tag">Piezas de noche</span>
-            <p class="programme-desc">
-              Cuatro piezas de tarde-noche. Negro tinta sobre el que reposa,
-              con disciplina, el brillo contenido del moiré. La colección
-              encuentra aquí su momento más íntimo: la elegancia que no
-              busca ser vista, sino sentida.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">20:25 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Cuarto pase — "La Pieza Única"</h3>
-            <span class="programme-tag">Cierre de colección</span>
-            <p class="programme-desc">
-              Una sola pieza. La obra de la temporada. Confeccionada durante
-              cuatro meses en el atelier. No habrá segunda unidad.
-              El desfile concluye en el momento en que ella cruza
-              el jardín por última vez.
-            </p>
-          </div>
-        </div>
-
-        <div class="programme-item">
-          <span class="programme-time">20:45 h</span>
-          <div class="programme-details">
-            <h3 class="programme-name">Cóctel de cierre — "Après Couture"</h3>
-            <span class="programme-tag">Recepción final</span>
-            <p class="programme-desc">
-              Vinos de Bodegas Marqués de Murrieta y conversación libre.
-              Los invitados podrán conocer a la directora creativa
-              de la Maison y acceder al libro de la colección,
-              disponible en edición limitada de ochenta ejemplares numerados.
-            </p>
-          </div>
-        </div>
-
+      <div class="h-meta fu d5">
+        <span>12 de junio de 2025</span>
+        <span>19:00 h — Palacete de las Magnolias, Madrid</span>
       </div>
+      <a href="#reserva" class="btn-white fu d6">Solicitar acceso</a>
     </div>
-  </section>
+
+    <div class="hero-img">
+      <img
+        src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=900&q=85&fit=crop"
+        alt="Desfile Primavera Silenciosa — Guau Couture, Madrid 2025"
+      />
+      <span class="hero-badge">SS 2025</span>
+      <span class="hero-caption">Palacete de las Magnolias — Madrid</span>
+    </div>
+
+  </div>
+</section>
 
 
-  <!-- ─── VISUAL FULL ───────────────────────────────────── -->
-  <div class="visual-full" aria-hidden="true">
-    <img
-      src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=1600&q=85&fit=crop&crop=center)"
-      alt=""
-    />
-    <div class="visual-full-overlay"></div>
-    <div class="visual-full-text">
-      <blockquote>
-        "Vestir bien no es una declaración de riqueza.
-        Es una declaración de criterio."
+<!-- ── ROSA BAND — Rosa Jardín + Negro ──────────────────────── -->
+<div class="rose-band" aria-hidden="true">
+  <span>Guau Couture — Primavera Silenciosa 2025</span>
+  <b>◆</b><span>Palacete de las Magnolias, Madrid</span>
+  <b>◆</b><span>12 de junio — Acceso por invitación</span>
+  <b>◆</b><span>Alta costura canina</span>
+  <b>◆</b><span>Guau Couture — Primavera Silenciosa 2025</span>
+  <b>◆</b><span>Palacete de las Magnolias, Madrid</span>
+  <b>◆</b><span>12 de junio — Acceso por invitación</span>
+</div>
+
+
+<!-- ── EDITORIAL — Blanco + Negro ───────────────────────────── -->
+<section class="editorial" id="evento">
+  <div class="editorial-inner">
+
+    <div>
+      <span class="s-label">La colección</span>
+      <h2 class="s-title">Sobre el<br><em>silencio</em><br>de la forma</h2>
+      <blockquote class="pull">
+        "El verdadero lujo no eleva la voz. Simplemente ocupa el espacio."
       </blockquote>
-      <cite>Guau Couture — Maison de alta costura canina, Madrid</cite>
+    </div>
+
+    <div class="e-body">
+      <p>
+        <strong>Primavera Silenciosa</strong> es la tercera colección de la Maison
+        Guau Couture presentada en formato desfile. Inspirada en la quietud de los
+        jardines formales del siglo xviii y en la geometría contenida de la alta
+        costura europea, esta entrega explora la tensión entre la estructura y el
+        movimiento, entre lo visible y lo apenas sugerido.
+      </p>
+      <p>
+        Dieciséis piezas. Cada una concebida para un cuerpo específico, cada una
+        portada por un modelo de impecable porte, seleccionado con la misma exigencia
+        con que se elige una tela. La colección transita del marfil al verde menta,
+        del crepé al organza, sin concesiones al exceso ni a la obviedad.
+      </p>
+      <p>
+        El desfile tendrá lugar en los jardines interiores del Palacete de las
+        Magnolias, en el barrio de Salamanca. Una locación que, como la propia
+        colección, prefiere la sugerencia a la declaración.
+      </p>
+      <p>
+        La asistencia es <strong>únicamente por invitación o reserva previa</strong>.
+        El aforo es reducido por diseño, no por circunstancia.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── VISUAL STRIP ───────────────────────────────────────────── -->
+<div class="vstrip" aria-hidden="true">
+  <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&q=80&fit=crop" alt="" />
+  <img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?w=500&q=80&fit=crop" alt="" />
+  <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=500&q=80&fit=crop&crop=top" alt="" />
+</div>
+
+
+<!-- ── PROGRAMME — Negro + Menta ────────────────────────────── -->
+<section class="prog" id="programa">
+  <div class="prog-inner">
+
+    <span class="s-label">12 de junio, 2025</span>
+    <h2 class="s-title" style="margin-bottom:14px">Programa<br><em>del desfile</em></h2>
+    <p class="prog-intro">
+      Cada momento de la velada ha sido compuesto con la misma atención
+      que una pieza de la colección. Nada está de más. Nada falta.
+    </p>
+
+    <div>
+
+      <div class="prog-item">
+        <span class="p-time">18:30 h</span>
+        <div>
+          <h3 class="p-name">La Antesala</h3>
+          <span class="prog-tag">Recepción privada</span>
+          <p class="p-desc">Bienvenida en el patio de entrada del Palacete. Champagne Billecart-Salmon y canapés de Sacha Ichiban. Momento de presentaciones, de silencio y de observación mutua.</p>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <span class="p-time">19:00 h</span>
+        <div>
+          <h3 class="p-name">Primer pase — "Blanco Geométrico"</h3>
+          <span class="prog-tag">Apertura</span>
+          <p class="p-desc">Las cuatro primeras piezas de la colección. Siluetas construidas sobre blanco hueso y crudo, con volúmenes detenidos en el aire. Referencia directa a la arquitectura de Mies van der Rohe y a la quietud de los jardines zen.</p>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <span class="p-time">19:20 h</span>
+        <div>
+          <h3 class="p-name">Segundo pase — "La Menta y la Sombra"</h3>
+          <span class="prog-tag">Colección central</span>
+          <p class="p-desc">El núcleo cromático de la temporada. Verde menta en sus cinco tonalidades: desde el pálido casi mineral hasta el saturado botánico. Cuatro piezas en organza y crepé con bordados de hilo de seda realizados a mano en el atelier de la Maison.</p>
+        </div>
+      </div>
+
+      <div class="prog-item prog-item--rose">
+        <span class="p-time">19:45 h</span>
+        <div>
+          <h3 class="p-name">Intermedio — "El Jardín en Pausa"</h3>
+          <span class="prog-tag">Pausa editorial</span>
+          <p class="p-desc">Breve suspensión de quince minutos. Los modelos permanecen en el jardín interior en actitud estática, convirtiéndose en composición visual. Música de cámara en directo a cargo del Trío Alhambra.</p>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <span class="p-time">20:00 h</span>
+        <div>
+          <h3 class="p-name">Tercer pase — "Noche de Magnolias"</h3>
+          <span class="prog-tag">Piezas de noche</span>
+          <p class="p-desc">Cuatro piezas de tarde-noche. Negro tinta sobre el que reposa, con disciplina, el brillo contenido del moiré. La colección encuentra aquí su momento más íntimo: la elegancia que no busca ser vista, sino sentida.</p>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <span class="p-time">20:25 h</span>
+        <div>
+          <h3 class="p-name">Cuarto pase — "La Pieza Única"</h3>
+          <span class="prog-tag">Cierre de colección</span>
+          <p class="p-desc">Una sola pieza. La obra de la temporada. Confeccionada durante cuatro meses en el atelier. No habrá segunda unidad. El desfile concluye en el momento en que ella cruza el jardín por última vez.</p>
+        </div>
+      </div>
+
+      <div class="prog-item">
+        <span class="p-time">20:45 h</span>
+        <div>
+          <h3 class="p-name">Cóctel de cierre — "Après Couture"</h3>
+          <span class="prog-tag">Recepción final</span>
+          <p class="p-desc">Vinos de Bodegas Marqués de Murrieta y conversación libre. Los invitados podrán conocer a la directora creativa de la Maison y acceder al libro de la colección, disponible en edición limitada de ochenta ejemplares numerados.</p>
+        </div>
+      </div>
+
     </div>
   </div>
+</section>
 
 
-  <!-- ─── PRACTICAL INFO ───────────────────────────────── -->
-  <section class="info" id="acceso">
-    <div class="container">
-      <div class="info-grid">
+<!-- ── FULL IMAGE ─────────────────────────────────────────────── -->
+<div class="vfull" aria-hidden="true">
+  <img
+    src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=1600&q=85&fit=crop&crop=center"
+    alt=""
+  />
+  <div class="vfull-ov"></div>
+  <div class="vfull-txt">
+    <blockquote>"Vestir bien no es una declaración de riqueza.<br>Es una declaración de criterio."</blockquote>
+    <cite>Guau Couture — Maison de Mode Canine, Madrid</cite>
+  </div>
+</div>
 
-        <div class="info-details">
-          <span class="section-label">Información de acceso</span>
-          <h2 class="section-title">Detalles<br><em>de la velada</em></h2>
 
-          <div class="info-block">
-            <span class="info-block-label">Fecha</span>
-            <p class="info-block-value">Jueves, 12 de junio de 2025</p>
-          </div>
+<!-- ── INFO — Rosa Jardín + Negro ───────────────────────────── -->
+<section class="info" id="acceso">
+  <div class="info-inner">
 
-          <div class="info-block">
-            <span class="info-block-label">Horario</span>
-            <p class="info-block-value">18:30 — Apertura de puertas</p>
-            <p class="info-block-sub">
-              Se ruega puntualidad. Las puertas se cerrarán a las 19:00 h,
-              coincidiendo con el inicio del primer pase.
-            </p>
-          </div>
+    <div>
+      <span class="s-label">Información de acceso</span>
+      <h2 class="s-title">Detalles<br><em>de la velada</em></h2>
 
-          <div class="info-block">
-            <span class="info-block-label">Lugar</span>
-            <p class="info-block-value">Palacete de las Magnolias</p>
-            <p class="info-block-sub">
-              Calle de Velázquez, 58 — Barrio de Salamanca, Madrid<br>
-              Acceso únicamente por la puerta principal. Valet disponible.
-            </p>
-          </div>
-
-          <div class="info-block">
-            <span class="info-block-label">Código de vestimenta</span>
-            <p class="info-block-value">Formal. Jardín de noche.</p>
-            <p class="info-block-sub">
-              El evento se celebra en espacio exterior cubierto.
-              Se recomienda considerar la temperatura de la tarde.
-            </p>
-          </div>
-        </div>
-
-        <div class="info-cta-side" id="reserva">
-          <p class="info-note">
-            Las plazas son limitadas a ochenta invitados por criterio
-            de la Maison. La reserva no garantiza el acceso hasta
-            confirmación expresa por parte del equipo de protocolo.
-          </p>
-          <a href="mailto:protocolo@guaucouture.es" class="btn-secondary">
-            Solicitar reserva
-          </a>
-          <p class="info-note" style="margin-top: 8px; font-size: 0.75rem;">
-            protocolo@guaucouture.es<br>
-            Respuesta en un plazo de 48 horas
-          </p>
-        </div>
-
+      <div class="i-block">
+        <span class="i-lbl">Fecha</span>
+        <p class="i-val">Jueves, 12 de junio de 2025</p>
+      </div>
+      <div class="i-block">
+        <span class="i-lbl">Horario</span>
+        <p class="i-val">18:30 h — Apertura de puertas</p>
+        <p class="i-sub">Se ruega puntualidad. Las puertas se cerrarán a las 19:00 h, coincidiendo con el inicio del primer pase.</p>
+      </div>
+      <div class="i-block">
+        <span class="i-lbl">Lugar</span>
+        <p class="i-val">Palacete de las Magnolias</p>
+        <p class="i-sub">Calle de Velázquez, 58 — Barrio de Salamanca, Madrid.<br>Acceso por la puerta principal. Valet disponible.</p>
+      </div>
+      <div class="i-block">
+        <span class="i-lbl">Código de vestimenta</span>
+        <p class="i-val">Formal. Jardín de noche.</p>
+        <p class="i-sub">El evento se celebra en espacio exterior cubierto. Se recomienda considerar la temperatura de la tarde.</p>
       </div>
     </div>
-  </section>
 
-
-  <!-- ─── FOOTER ───────────────────────────────────────── -->
-  <footer>
-    <div class="footer-inner">
-
-      <div class="footer-brand">
-        <span class="footer-logo">Guau Couture</span>
-        <p class="footer-tagline">
-          La distinción no se compra. Se hereda. O se viste.
-        </p>
-      </div>
-
-      <div class="footer-meta">
-        <div class="footer-links">
-          <a href="#">Instagram</a>
-          <a href="#">Contacto</a>
-          <a href="#">Privacidad</a>
-        </div>
-        <span>© 2025 Guau Couture — Madrid</span>
-        <span>Maison de alta costura canina</span>
-      </div>
-
+    <!-- Panel Negro + Menta sobre fondo Rosa Jardín -->
+    <div class="info-cta" id="reserva">
+      <span class="cta-label">Reserva de acceso</span>
+      <p class="cta-note">Las plazas son limitadas a ochenta invitados por criterio de la Maison. La reserva no garantiza el acceso hasta confirmación expresa por parte del equipo de protocolo.</p>
+      <a href="mailto:protocolo@guaucouture.es" class="btn-mint">Solicitar reserva</a>
+      <p class="cta-contact">
+        protocolo@guaucouture.es<br>
+        <span style="font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,250,248,.4);">Respuesta en 48 horas</span>
+      </p>
     </div>
-  </footer>
 
+  </div>
+</section>
+
+
+<!-- ── FOOTER — Verde Menta + Blanco ─────────────────────────── -->
+<footer>
+  <div class="ft-inner">
+    <div>
+      <span class="ft-g">Guau</span>
+      <span class="ft-c">Couture</span>
+      <p class="ft-tag">La distinción no se compra. Se hereda. O se viste.</p>
+    </div>
+    <div class="ft-meta">
+      <div class="ft-links">
+        <a href="#">Instagram</a>
+        <a href="#">Contacto</a>
+        <a href="#">Privacidad</a>
+      </div>
+      <span>© 2025 Guau Couture — Madrid</span>
+      <span>Maison de Mode Canine</span>
+    </div>
+  </div>
+  <div class="ft-rule"></div>
+</footer>
 
 </body>
 </html>
